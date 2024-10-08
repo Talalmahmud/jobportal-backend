@@ -5,6 +5,9 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { dbConnect } from "./utils/db.js";
 
+import userRoute from "./routes/userRoute.js";
+import jobRoute from "./routes/jobRoute.js";
+
 const app = express();
 
 dbConnect();
@@ -12,6 +15,10 @@ dbConnect();
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use("/api/v1", userRoute);
+
+app.use("/api/v1", jobRoute);
 
 app.use("/test", (req, res) => {
   return res.status(200).json({ message: "Test success..." });

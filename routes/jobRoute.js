@@ -14,4 +14,4 @@ router.post("/job", userAuth, createJob);
 router.put("/job/:id", userAuth, editJobById);
 router.delete("/job/:id", userAuth, deleteJob);
 
-export default route;
+export default router;
