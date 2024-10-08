@@ -9,7 +9,6 @@ export const userAuth = async (req, res, next) => {
 
   try {
     const decode = jwt.verify(userToken, "talal");
-
     req.user = decode;
     next();
   } catch (error) {

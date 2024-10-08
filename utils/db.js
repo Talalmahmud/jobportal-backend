@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 const mongoURI = process.env.MONGO_URI;
 
-export const connectDB = async () => {
+export const dbConnect = async () => {
   try {
     if (!mongoURI) {
       throw new Error("MONGO_URI environment variable is not defined");
