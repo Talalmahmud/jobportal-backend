@@ -24,9 +24,9 @@ export const viewAllJob = async (req, res) => {
     const totalJob = await Job.countDocuments({});
 
     // Calculate total pages based on the total count and limit
-    const totalPages = Math.ceil(totalUsers / limit);
+    const totalPages = Math.ceil(totalJob / limit);
     return res.status(200).json({
-      data: users,
+      data: jobs,
       currentPage: page,
       totalPages: totalPages,
       totalJobs: totalJob,
@@ -34,7 +34,57 @@ export const viewAllJob = async (req, res) => {
     });
   } catch (error) {
     return res
-      .status(400)
+      .status(500)
+      .json({ message: "Internal server error", error: error });
+  }
+};
+
+export const editJobById = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+
+    const job = await Job.findOneAndUpdate(jobId, req.body, {
+      new: true, // Return the updated document
+      runValidators: true, // Validate the update against the schema
+    });
+    return res.status(200).json({
+      mesage: "Update is succeed",
+      data: job,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error });
+  }
+};
+
+export const viewJobById = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+
+    const job = await Job.findById(jobId);
+    return res.status(200).json({
+      data: job,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error });
+  }
+};
+
+export const deleteJob = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+
+    const job = await Job.findByIdAndDelete(jobId);
+    return res.status(200).json({
+      message: "Job delete is success",
+      data: job,
+    });
+  } catch (error) {
+    return res
+      .status(500)
       .json({ message: "Internal server error", error: error });
   }
 };
