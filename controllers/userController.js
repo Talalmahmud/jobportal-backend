@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../models/userModel.js";
+import jwt from "jsonwebtoken";
 
 export const createUser = async (req, res) => {
   try {
@@ -52,4 +53,21 @@ export const userLogin = async (req, res) => {
   return res
     .status(401)
     .json({ message: "Email or password may be incorrect." });
+};
+
+export const verifyUser = (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized, no token found" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, "talal"); // Verify the token with your secret key
+    return res.status(200).json({ message: "Token is valid", user: decoded });
+  } catch (error) {
+    return res
+      .status(401)
+      .json({ message: "Invalid token", error: error.message });
+  }
 };

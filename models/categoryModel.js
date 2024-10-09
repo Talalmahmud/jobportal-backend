@@ -6,6 +6,7 @@ const CategorySchema = new mongoose.Schema(
       type: String,
       max: [20, "Category title can not exit 20 characters."],
     },
+    jobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }],
   },
   { timestamps: true }
 );
