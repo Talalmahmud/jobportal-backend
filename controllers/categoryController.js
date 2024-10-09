@@ -41,18 +41,18 @@ export const viewAllCategory = async (req, res) => {
 //   }
 // };
 
-// export const deleteJob = async (req, res) => {
-//   try {
-//     const jobId = req.params.id;
+export const deleteCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.id;
 
-//     const job = await Job.findByIdAndDelete(jobId);
-//     return res.status(200).json({
-//       message: "Job delete is success",
-//       data: job,
-//     });
-//   } catch (error) {
-//     return res
-//       .status(500)
-//       .json({ message: "Internal server error", error: error });
-//   }
-// };
+    const category = await Category.findByIdAndDelete(categoryId);
+    return res.status(200).json({
+      message: "Category delete is success",
+      data: category,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error });
+  }
+};
