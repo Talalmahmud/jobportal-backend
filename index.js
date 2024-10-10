@@ -18,12 +18,13 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//routes
 app.use("/api/v1", userRoute);
 app.use("/api/v1", jobRoute);
 app.use("/api/v1", categoryRoute);
 
 app.use("/test", (req, res) => {
-  return res.status(200).json({ message: "Test success..." });
+  return res.status(200).json({ message: "Test success" });
 });
 
 app.use((err, req, res, next) => {
